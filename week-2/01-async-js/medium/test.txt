@@ -1,0 +1,2 @@
+I don't care how many spaces i have .
+All i need is a file without spaces.
