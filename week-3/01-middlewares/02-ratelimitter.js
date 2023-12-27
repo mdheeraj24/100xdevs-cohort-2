@@ -12,15 +12,41 @@ const app = express();
 // clears every one second
 
 let numberOfRequestsForUser = {};
-setInterval(() => {
-    numberOfRequestsForUser = {};
+let timesRun = 0;
+let interval = setInterval(() => {
+  timesRun++;
+  numberOfRequestsForUser = {};
+  if (timesRun > 2) {
+    clearInterval(interval);
+  }
 }, 1000)
 
+function checkAndIncrement(user) {
+  if (!numberOfRequestsForUser[user]) {
+    numberOfRequestsForUser[user] = 0;
+  }
+  if (numberOfRequestsForUser[user] >= 5) {
+    return false;
+  }
+  numberOfRequestsForUser[user]++;
+  return true;
+}
+
 app.get('/user', function(req, res) {
+  let user = req.header('user-id');
+  if (!checkAndIncrement(user)) {
+    res.status(404).send();
+    return;
+  }
   res.status(200).json({ name: 'john' });
 });
 
 app.post('/user', function(req, res) {
+  let user = req.header('user-id');
+  if (!checkAndIncrement(user)) {
+    res.status(404).send();
+    return;
+  }
   res.status(200).json({ msg: 'created dummy user' });
 });
 

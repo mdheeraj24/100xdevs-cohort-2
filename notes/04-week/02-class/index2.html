@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todo APP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script>
+        function createTodoItem(title, description, id) {
+          const todoItemDiv = document.createElement('div');
+          
+          const titleDiv = document.createElement('div');
+          titleDiv.innerHTML = title;
+
+          const descDiv = document.createElement('div');
+          descDiv.innerHTML = description;
+
+          const markAsDoneButton = document.createElement('button');
+          markAsDoneButton.innerHTML = 'Mark As Done';
+          markAsDoneButton.setAttribute("onClick", `markAsDone(${id})`);
+
+          todoItemDiv.appendChild(titleDiv);
+          todoItemDiv.appendChild(descDiv);
+          todoItemDiv.appendChild(markAsDoneButton);
+          todoItemDiv.setAttribute('id', id);
+          return todoItemDiv;
+
+        }
+        function markAsDone(id) {
+         let todoItemDiv =  document.getElementById(id);
+          todoItemDiv.children[2].innerHTML = "Done";
+        }
+        let todoId = 1;
+        const todos = [];
+        function createTodo(){
+          const title = document.getElementById('title').value;
+          const description = document.getElementById('description').value;
+          todos.push({
+            id: todoId++,
+            title: title,
+            description: description
+          })
+          reloadTodos();
+        }
+        // [
+        //   {
+        //     id: 123,
+        //     title: "title",
+        //     description: "description"
+        //   }
+        // ]
+        function reloadTodos() {
+          document.getElementById('container').innerHTML = '';
+          todos.forEach((todo) => {
+             document.getElementById('container').appendChild(createTodoItem(todo.title, todo.description, todo.id)); 
+          });
+        }
+    </script>
+    <input type="text" name="title" value="" placeholder="Title" id="title"> <br/>
+    <input type="text" name="description" value="" placeholder="Description" id="description"><br/>
+    <button type="button" onclick="createTodo()">Add Todo</button>
+    <div id ="container">
+    </div>
+  </body>
+</html>

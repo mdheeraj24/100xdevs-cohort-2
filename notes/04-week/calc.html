@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sum calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script>
+      function populateResult() {
+         var first = document.getElementById("FirstNumber").value;
+         var second = document.getElementById("SecondNumber").value;
+         document.getElementById("result").innerHTML = Number(first) + Number(second); 
+      }
+    </script>
+    <input type="text" id = "FirstNumber" name="First Number" value="" placeholder="First Number"> <br>
+    <input type="text" id = "SecondNumber" name="Second Number" value="" placeholder="Second Number"> <br>
+    <button onclick="populateResult()" type="button" id="sum">Sum</button> <br>
+    <div id = "result"></div>
+  </body>
+</html>
